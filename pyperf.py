@@ -60,6 +60,10 @@ def process_client(opt, args):
         s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, opt.window)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, opt.window)
 
+
+    if opt.qos:
+        s.setsockopt(socket.IPPROTO_IP, socket.IP_TOS, opt.qos)
+
     print "TCP Window size RECV:", s.getsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF), "SEND:", s.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)
 
     s.connect((opt.connect_to_hostname, opt.portnumber))
@@ -98,6 +102,7 @@ parser.add_option('-B', '--bind', dest="bind_to_host", type="string", default=''
 parser.add_option('-l', '--len', dest="buflen", type="int", default=8192)
 parser.add_option('-p', '--port', dest="portnumber", type="int", default=PORT)
 parser.add_option('-t', '--time', dest="time", type="int", default=10)
+parser.add_option('-Q', '--qos', dest="qos", type="int", default=0)
 opt,args = parser.parse_args()
 
 if opt.server_mode and opt.connect_to_hostname:
