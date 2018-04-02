@@ -45,7 +45,7 @@ def process_server(opt, args):
         t_total = time.time() - t_start
         conn.close()
 
-        print "Received", transferred, "bytes in", t_total, "seconds"
+        print "Received %d bytes in %.2f seconds"  % (transferred, t_total)
         print "Speed %.2f B/sec %.2f KB/sec %.2f MB/sec" % (transferred/t_total, transferred/t_total/1024,transferred/t_total/(1024*1024))
         if opt.checksum:
             print "Checksum", xsum.hexdigest()
@@ -83,7 +83,7 @@ def process_client(opt, args):
 
     t_total = time.time() - t_start
     s.close()
-    print "Transferred", transferred, "bytes in", t_total, "seconds"
+    print "Transferred  %d bytes in %.2f seconds"  % (transferred, t_total)
     print "Speed %.2f B/sec %.2f KB/sec %.2f MB/sec" % (transferred/t_total, transferred/t_total/1024,transferred/t_total/(1024*1024))
     if opt.checksum:
         print "Checksum", xsum.hexdigest()
