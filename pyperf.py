@@ -53,7 +53,7 @@ def process_server(opt, args):
 
 def process_client(opt, args):
     print "Entering Client mode"
-    print "Connecting to", opt.connect_to_hostname, "port", opt.portnumber
+    print "Connecting to", opt.connect_to_hostname, "port", opt.portnumber, "buffer size", opt.buflen
     buf = " " * opt.buflen
     s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
     if opt.window:
