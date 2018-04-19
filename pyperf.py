@@ -23,6 +23,11 @@ def process_server(opt, args):
         s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, opt.window)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, opt.window)
 
+    if opt.congestion:
+        s.setsockopt(socket.IPPROTO_TCP, 13, opt.congestion)
+        print "Setting congestion avoiding algo to: ", opt.congestion
+    # TCP_CONGESTION in /usr/include/linuxr/.tcp.h /usr/include/netinet/tcp.h
+
     print "TCP Window size RECV:", s.getsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF), "SEND:", s.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)
 
     s.listen(1)
