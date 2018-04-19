@@ -123,9 +123,9 @@ parser.add_option('-W', '--window', type='int', dest='window')
 parser.add_option('-B', '--bind', dest="bind_to_host", type="string", default='')
 parser.add_option('-l', '--len', dest="buflen", type="int", default=8192)
 parser.add_option('-p', '--port', dest="portnumber", type="int", default=PORT)
-parser.add_option('-t', '--time', dest="time", type="int", default=10)
+parser.add_option('-t', '--time', dest="time", type="int", default=10, help="Time to run a test")
 parser.add_option('-Q', '--qos', dest="qos", type="int", default=0)
-parser.add_option('-C', '--congestion', dest="congestion", type="string", default='')
+parser.add_option('-C', '--congestion', dest="congestion", type="string", default='', help="Specify congestion aviodance algorithm, like reno or cubic")
 
 opt,args = parser.parse_args()
 
