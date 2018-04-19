@@ -14,6 +14,10 @@ def process_server(opt, args):
     print "Entering Server mode"
     print "Listening on port", opt.portnumber
     s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
+
+    if opt.bind_to_host:
+       print "Binding to ", opt.bind_to_host
+
     s.bind((opt.bind_to_host, opt.portnumber))
     if opt.window:
         s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, opt.window)
@@ -56,6 +60,12 @@ def process_client(opt, args):
     print "Connecting to", opt.connect_to_hostname, "port", opt.portnumber, "buffer size", opt.buflen, "bytes time", opt.time, "seconds" 
     buf = " " * opt.buflen
     s = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
+
+
+    if opt.bind_to_host:
+        s.bind((opt.bind_to_host, 0))
+        print "Binding to ", opt.bind_to_host
+
     if opt.window:
         s.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, opt.window)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, opt.window)
