@@ -74,6 +74,13 @@ def process_client(opt, args):
     if opt.qos:
         s.setsockopt(socket.IPPROTO_IP, socket.IP_TOS, opt.qos)
 
+
+    if opt.congestion:
+        s.setsockopt(socket.IPPROTO_TCP, 13, opt.congestion)
+        print "Setting congestion avoiding algo to: ", opt.congestion
+    # TCP_CONGESTION in /usr/include/linuxr/.tcp.h /usr/include/netinet/tcp.h
+
+
     print "TCP Window size RECV:", s.getsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF), "SEND:", s.getsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF)
 
     s.connect((opt.connect_to_hostname, opt.portnumber))
@@ -113,6 +120,8 @@ parser.add_option('-l', '--len', dest="buflen", type="int", default=8192)
 parser.add_option('-p', '--port', dest="portnumber", type="int", default=PORT)
 parser.add_option('-t', '--time', dest="time", type="int", default=10)
 parser.add_option('-Q', '--qos', dest="qos", type="int", default=0)
+parser.add_option('-C', '--congestion', dest="congestion", type="string", default='')
+
 opt,args = parser.parse_args()
 
 if opt.server_mode and opt.connect_to_hostname:
